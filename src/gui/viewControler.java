@@ -1,44 +1,36 @@
 package gui;
-import gui.util.Constraints;
-import gui.util.alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class viewControler implements Initializable {
     @FXML
-    private TextField txtNumber1;
+     private MenuItem menuItemSeller;
     @FXML
-    private TextField txtNumber2;
+
+     private MenuItem menuItemDepartment;
     @FXML
-    private Label labelResult;
+     private  MenuItem menuItemAbout;
+
     @FXML
-    private Button btSum;
-
-
-    public void onButtonSumAction(){
-        try {
-            Double number1 = Double.parseDouble(txtNumber1.getText());
-            Double number2 = Double.parseDouble(txtNumber2.getText());
-
-            double sum = number1 + number2;
-            labelResult.setText(String.format("%.2f", sum));
-        }catch (NumberFormatException e){
-            alerts.showAlert("ERROR",e.getMessage(), Alert.AlertType.ERROR);
-        }
+    public  void onMenuItemSellerAction(){
+        System.out.println("onMenuItemSellerAction");
+    }
+    @FXML
+    public  void onMenuItemDepartmentAction(){
+        System.out.println("onMenuItemDepartmentAction");
+    }
+    @FXML
+    public  void onMenuItemAboutAction(){
+        System.out.println("onMenuItemAboutAction");
     }
 
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Constraints.setTextFieldDouble(txtNumber1);
-        Constraints.setTextFieldDouble(txtNumber2);
-        Constraints.setTextFieldMaxLength(txtNumber1,12);
-        Constraints.setTextFieldMaxLength(txtNumber2,12);
+    public void initialize(URL url, ResourceBundle rb) {
+
     }
 }
