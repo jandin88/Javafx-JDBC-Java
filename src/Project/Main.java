@@ -8,16 +8,17 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static Scene mainScene;
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Fxml/view.fxml"));
             ScrollPane scrollPane = loader.load();
 
             scrollPane.setFitToHeight(true);
             scrollPane.setFitToWidth(true);
 
-            Scene mainScene = new Scene(scrollPane);
+            mainScene = new Scene(scrollPane);
             primaryStage.setScene(mainScene);
             primaryStage.setTitle("Sample JavaFX application");
             primaryStage.show();
