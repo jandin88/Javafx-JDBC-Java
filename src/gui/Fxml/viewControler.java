@@ -13,6 +13,7 @@ import model.services.DepartmentService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class viewControler implements Initializable {
     @FXML
@@ -29,21 +30,21 @@ public class viewControler implements Initializable {
     }
     @FXML
     public  void onMenuItemDepartmentAction(){
-        loadView2("/gui/FXml/DepartamentList.fxml");
+        loadView("/gui/FXml/DepartamentList.fxml",(DepartamentLisController controller)->{
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        });
     }
-
-
 
     @FXML
     public  void onMenuItemAboutAction(){
-       loadView("/gui/FXml/About.fxml");
+       loadView("/gui/FXml/About.fxml",x->{});
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
-    private synchronized void loadView(String AbsoluteName){
+    private synchronized <T> void loadView(String AbsoluteName, Consumer<T> initializingAction){
         try{
             FXMLLoader loader=new FXMLLoader(getClass().getResource(AbsoluteName));
             VBox newVbox = loader.load();
@@ -55,28 +56,12 @@ public class viewControler implements Initializable {
             mainVbox.getChildren().clear();
             mainVbox.getChildren().add(mainMenu);
             mainVbox.getChildren().addAll(newVbox.getChildren());
+
+            T controller=loader.getController();
+            initializingAction.accept(controller);
         }catch (IOException e){
             alerts.showAlert("IO Excpetion",e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-    private synchronized void loadView2(String AbsoluteName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(AbsoluteName));
-            VBox newVbox = loader.load();
 
-            Scene mainScene = Main.getMainScene();
-            VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-
-            Node mainMenu = mainVbox.getChildren().get(0);
-            mainVbox.getChildren().clear();
-            mainVbox.getChildren().add(mainMenu);
-            mainVbox.getChildren().addAll(newVbox.getChildren());
-
-            DepartamentLisController controller = loader.getController();
-            controller.setDepartmentService(new DepartmentService());
-            controller.updateTableView();
-        } catch (IOException e) {
-            alerts.showAlert("IO Excpetion", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
 }
