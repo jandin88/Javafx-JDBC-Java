@@ -1,3 +1,3 @@
 # Javafx-JDBC-Java
 
-Projeto feito utilizando java, javafX, jdbc
+Projeto para aprendizado do java com javaFX e Banco de 
